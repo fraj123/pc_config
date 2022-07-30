@@ -1,8 +1,18 @@
-#! /bin/sh
+#! /bin/bash
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+if [[ $(xrandr -q | grep 'DVI-I-1 connected') ]]; then 
+#	xrandr --output DVI-I-1 --rotate left
+  xrandr --output DP-0 --primary --mode 2560x1080 --rotate normal --pos 1080x630 --output DVI-I-1 --mode 1920x1080 --rotate left --pos 0x0
+	#xrandr --output DP-0 --primary --mode 2560x1080 --rotate normal --pos 1080x1500 --output DVI-I-1 --mode 1920x1080 --rotate left --left-of DP-0
+fi
+
+bspc monitor DP-0 -n horizontal -d 1 2 3 4 5 6 7 8
+bspc monitor DVI-I-1 -n vertical -d 9 0
+bspc wm -O horizontal vertical
+bspc monitor DP-0 -s DVI-I-1
+
 bspc config border_width         2
 bspc config window_gap          12
 
@@ -16,7 +26,11 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-feh --bg-fill ~/Pictures/screen/yungas.jpg
-~/.config/polybar/launch.sh
+feh --bg-fill /home/fmejia/Desktop/Images/salar.jpg
+~/.config/polybar/./launch.sh
+#picom --experimental-backends &
+export _JAVA_AWT_WM_NONREPARENTING=1
+wmname LD3D
 bspc config border_width 0
 xsetroot -cursor_name left_ptr &
+greenclip daemon &

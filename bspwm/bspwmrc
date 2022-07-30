@@ -16,4 +16,7 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
+feh --bg-fill ~/Pictures/screen/yungas.jpg
 ~/.config/polybar/launch.sh
+bspc config border_width 0
+xsetroot -cursor_name left_ptr &
